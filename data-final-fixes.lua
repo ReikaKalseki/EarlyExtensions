@@ -1,5 +1,8 @@
 require "__DragonIndustries__.recipe"
+require "__DragonIndustries__.tech"
 require "__DragonIndustries__.arrays"
+
+require "prototypes.autotransport"
 
 lockRecipe("boiler", "steam-power")
 --lockRecipe("steam-engine", "steam-power")
@@ -61,6 +64,7 @@ addPrereqToTech("mining-speed-upgrade1", "basic-science")
 addPrereqToTech("crafting-speed-upgrade1", "basic-science")
 
 createConversionRecipe("burner-lab", "lab", true, "basic-science", false)
+createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", true)
 
 table.insert(data.raw.character.character.crafting_categories, "early-science")
 for _,assembler in pairs(data.raw["assembling-machine"]) do

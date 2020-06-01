@@ -28,7 +28,7 @@ data:extend({
 		enabled = true,
 		ingredients =
 		{
-		  {"copper-cable", 2},
+		  {"copper-cable", 3},
 		  {"iron-gear-wheel", 3},
 		  {"iron-plate", 5}
 		},
