@@ -1,15 +1,17 @@
 require "__DragonIndustries__.recipe"
+require "__DragonIndustries__.arrays"
 
 lockRecipe("boiler", "steam-power")
-lockRecipe("steam-engine", "steam-power")
+--lockRecipe("steam-engine", "steam-power")
+lockRecipe("steam-engine", "electric-machinery")
 
-lockRecipe("lab", "electric-machinery")
-lockRecipe("inserter", "electric-machinery")
-lockRecipe("electric-mining-drill", "electric-machinery")
+--lockRecipe("inserter", "electric-machinery")
+--lockRecipe("electric-mining-drill", "electric-machinery")
 lockRecipe("small-electric-pole", "electric-machinery")
 lockRecipe("radar", "electric-machinery")
 
 lockRecipe("automation-science-pack", "basic-science")
+lockRecipe("lab", "basic-science")
 
 --addPrereqToTech("automation", "electric-machinery")
 addPrereqToTech("optics", "electric-machinery")
@@ -32,15 +34,37 @@ if data.raw.item["burner-offshore-pump"] then
 	lockRecipe("burner-offshore-pump", "steam-power")
 	lockRecipe("electric-offshore-pump", "electric-machinery")
 	--lockRecipe("offshore-pump", "electric-machinery")
+	lockRecipe("electronic-circuit", "electric-machinery")
+	addItemToRecipe("burner-offshore-pump", "iron-gear-wheel", 2, 3, true)
 else
 	lockRecipe("offshore-pump", "steam-power")
+	removeItemFromRecipe("offshore-pump", "electronic-circuit")
+	addItemToRecipe("offshore-pump", "iron-gear-wheel", 2, 3, true)
 end
 lockRecipe("wind-turbine", "electric-machinery")
 lockRecipe("wind-turbine-2", "electric-machinery")
 lockRecipe("burner-generator", "electric-machinery")
+
+--[[
 lockRecipe("burner-inserter-conversion-to-inserter", "electric-machinery")
 lockRecipe("burner-mining-drill-conversion-to-electric-mining-drill", "electric-machinery")
+--]]
+for _,recipe in pairs(data.raw.recipe) do
+	local out = getRecipeOutput(recipe)
+	if recipeProduces(recipe, "inserter") or recipeProduces(recipe, "electric-mining-drill") then
+		lockRecipe(recipe, "electric-machinery")
+	end
+end
 
 --addPrereqToTech("bob-greenhouse", "electric-machinery")
 addPrereqToTech("mining-speed-upgrade1", "basic-science")
 addPrereqToTech("crafting-speed-upgrade1", "basic-science")
+
+createConversionRecipe("burner-lab", "lab", true, "basic-science", false)
+
+table.insert(data.raw.character.character.crafting_categories, "early-science")
+for _,assembler in pairs(data.raw["assembling-machine"]) do
+	if listHasValue(assembler.crafting_categories, "crafting") then
+		table.insert(assembler.crafting_categories, "early-science")
+	end
+end

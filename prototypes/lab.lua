@@ -26,7 +26,6 @@ lab.working_sound =
         filename = "__EarlyExtensions__/sounds/lab.ogg",
         volume = 1.0
       },
-      audible_distance_modifier = 1.1,
       fade_in_ticks = 4,
       fade_out_ticks = 20
     }
@@ -50,6 +49,10 @@ replaceSpritesDynamic("EarlyExtensions", "automation-science-pack", pack)
 data:extend({
 	lab,labitem,pack,
 	{
+		type = "recipe-category",
+		name = "early-science"
+	},
+	{
 		type = "recipe",
 		name = labitem.name,
 		energy_required = 1,
@@ -65,14 +68,27 @@ data:extend({
 	{
 		type = "recipe",
 		name = pack.name,
-		energy_required = 2,
 		enabled = true,
-		ingredients =
-		{
-		  {"stone-brick", 1},
-		  {"iron-plate", 2},
-		  {"copper-plate", 1},
+		category = "early-science",
+		normal = {
+			ingredients =
+			{
+			  {"stone", 1},
+			  {"iron-plate", 2},
+			  {"copper-plate", 1},
+			},
+			energy_required = 2,
+			result = pack.name
 		},
-		result = pack.name
+		expensive = {
+			ingredients =
+			{
+			  {"stone-brick", 1},
+			  {"iron-plate", 4},
+			  {"copper-plate", 3},
+			},
+			energy_required = 2.5,
+			result = pack.name
+		},
 	}
 })
