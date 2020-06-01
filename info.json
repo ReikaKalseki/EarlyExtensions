@@ -1,0 +1,9 @@
+{
+  "name": "EarlyExtensions",
+  "version": "0.0.1",
+  "factorio_version": "0.18",
+  "title": "Early Extensions",
+  "author": "Reika",
+  "description": "Expands the early (pre-electricity) game so that there actually is some time spent with burner hardware.",
+  "dependencies": ["base", "DragonIndustries"]
+}
