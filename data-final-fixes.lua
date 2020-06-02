@@ -64,7 +64,8 @@ addPrereqToTech("mining-speed-upgrade1", "basic-science")
 addPrereqToTech("crafting-speed-upgrade1", "basic-science")
 
 createConversionRecipe("burner-lab", "lab", true, "basic-science", false)
-createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", true)
+local rec = createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", false)
+streamlineRecipeOutputWithRecipe(rec, "electronic-circuit", "assembling-machine-1")
 
 table.insert(data.raw.character.character.crafting_categories, "early-science")
 for _,assembler in pairs(data.raw["assembling-machine"]) do
