@@ -33,6 +33,13 @@ replaceTechPack("turrets", "automation-science-pack", "early-science-pack")
 replaceTechPack("stone-walls", "automation-science-pack", "early-science-pack")
 --lockRecipe("automation-science-pack", "automation")
 
+replaceItemInRecipe("splitter", "electronic-circuit", "copper-cable", 3)
+replaceItemInRecipe("splitter", "iron-plate", "iron-gear-wheel", 0.67)
+addItemToRecipe("splitter", "iron-gear-wheel", 1, 2, true)
+
+replaceItemInRecipe("repair-pack", "electronic-circuit", "copper-cable", 3)
+addItemToRecipe("repair-pack", "iron-plate", 1, 1, true)
+
 if data.raw.item["burner-offshore-pump"] then
 	lockRecipe("burner-offshore-pump", "steam-power")
 	lockRecipe("electric-offshore-pump", "electric-machinery")

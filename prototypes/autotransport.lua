@@ -36,6 +36,7 @@ data:extend({
 
 addPrereqToTech("logistics", "automated-transport")
 addPrereqToTech("electric-machinery", "automated-transport")
+replaceItemInRecipe("burner-lab", "burner-inserter", "copper-cable", 3)
 
 for _,recipe in pairs(data.raw.recipe) do
 	local out = getRecipeOutput(recipe)

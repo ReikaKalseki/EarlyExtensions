@@ -61,7 +61,8 @@ data:extend({
 		{
 		  {"iron-stick", 10},
 		  {"iron-gear-wheel", 4},
-		  {"burner-inserter", 5}
+		  {"burner-inserter", 5},
+		{"stone-brick", 10},
 		},
 		result = labitem.name
 	},
