@@ -4,6 +4,6 @@
   "factorio_version": "0.18",
   "title": "Early Extensions",
   "author": "Reika",
-  "description": "Expands the early (pre-electricity) game so that there actually is some time spent with burner hardware.",
-  "dependencies": ["base", "DragonIndustries"]
+  "description": "Expands the early (pre-electricity) game so that there actually is some time spent with burner hardware, without overhauling the game or having long-lasting effects on balance or the production lines.",
+  "dependencies": ["base", "DragonIndustries", "?RubberBelts", "?NauvisDay", "?BurnerOffshorePump", "?BobLogistics"]
 }

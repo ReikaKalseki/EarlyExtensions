@@ -33,9 +33,12 @@ replaceTechPack("turrets", "automation-science-pack", "early-science-pack")
 replaceTechPack("stone-walls", "automation-science-pack", "early-science-pack")
 --lockRecipe("automation-science-pack", "automation")
 
-replaceItemInRecipe("splitter", "electronic-circuit", "copper-cable", 3)
-replaceItemInRecipe("splitter", "iron-plate", "iron-gear-wheel", 0.67)
-addItemToRecipe("splitter", "iron-gear-wheel", 1, 2, true)
+local rec = table.deepcopy(data.raw.recipe.splitter)
+rec.name = "splitter-early"
+replaceItemInRecipe(rec, "electronic-circuit", "copper-cable", {3, 8})
+addRecipeIngredientToRecipe(rec, "iron-plate", "electronic-circuit", 5, true) --since 5 circuits
+data:extend({rec})
+table.insert(data.raw.technology.logistics.effects, {type = "unlock-recipe", recipe = rec.name})
 
 replaceItemInRecipe("repair-pack", "electronic-circuit", "copper-cable", 3)
 addItemToRecipe("repair-pack", "iron-plate", 1, 1, true)
@@ -70,8 +73,30 @@ end
 addPrereqToTech("mining-speed-upgrade1", "basic-science")
 addPrereqToTech("crafting-speed-upgrade1", "basic-science")
 
-createConversionRecipe("burner-lab", "lab", true, "basic-science", false)
-local rec = createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", false)
+--createConversionRecipe("burner-lab", "lab", true, "basic-science", false) --they share too few ingredients; better to do manually
+rec =
+	{
+		type = "recipe",
+		name = "burner-lab-upgrade",
+		energy_required = 3,
+		enabled = false,
+		ingredients =
+		{
+			{"burner-lab", 1},
+			{"electronic-circuit", 12},
+			{"iron-plate", 10},
+		},
+		result = "lab"
+	}
+if mods["RubberBelts"] then
+	table.insert(rec.ingredients, {"rubber", 8})
+end
+data:extend({
+	rec
+})
+lockRecipe("burner-lab-upgrade", "basic-science")
+
+rec = createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", false)
 streamlineRecipeOutputWithRecipe(rec, "electronic-circuit", "assembling-machine-1")
 
 table.insert(data.raw.character.character.crafting_categories, "early-science")
