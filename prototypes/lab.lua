@@ -32,6 +32,7 @@ lab.working_sound =
 	
 --log(serpent.block(lab))
 	
+lab.on_animation.layers[1].width = 97
 lab.on_animation.layers[1].frame_count = 40
 lab.on_animation.layers[1].line_length = 10
 lab.on_animation.layers[1].animation_speed = 0.5

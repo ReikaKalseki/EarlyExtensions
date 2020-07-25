@@ -86,7 +86,8 @@ rec =
 			{"electronic-circuit", 12},
 			{"iron-plate", 10},
 		},
-		result = "lab"
+		result = "lab",
+		icons = {{icon = data.raw.item.lab.icon, icon_size = data.raw.item.lab.icon_size}, {icon = "__DragonIndustries__/graphics/icons/conversion_overlay.png", icon_size = 32}}
 	}
 if mods["RubberBelts"] then
 	table.insert(rec.ingredients, {"rubber", 8})
