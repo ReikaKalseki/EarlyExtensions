@@ -29,8 +29,8 @@ addPrereqToTech("automation", "basic-science")
 
 replaceTechPack("logistics", "automation-science-pack", "early-science-pack")
 --replaceTechPack("automation", "automation-science-pack", "early-science-pack")
-replaceTechPack("turrets", "automation-science-pack", "early-science-pack")
-replaceTechPack("stone-walls", "automation-science-pack", "early-science-pack")
+replaceTechPack("gun-turret", "automation-science-pack", "early-science-pack")
+replaceTechPack("stone-wall", "automation-science-pack", "early-science-pack")
 --lockRecipe("automation-science-pack", "automation")
 
 local rec = table.deepcopy(data.raw.recipe.splitter)

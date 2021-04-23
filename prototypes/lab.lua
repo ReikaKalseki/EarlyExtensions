@@ -14,7 +14,7 @@ lab.energy_source =
       emissions_per_minute = 12,
       smoke = data.raw.boiler.smoke
     }
-lab.light.color = {r = 1.0, g = 0.7, b = 0.2}
+--lab.light.color = {r = 1.0, g = 0.7, b = 0.2}
 lab.energy_usage = "400kW"
 lab.researching_speed = 0.25
 lab.inputs = {"early-science-pack", "automation-science-pack"}
@@ -31,7 +31,7 @@ lab.working_sound =
     }
 	
 --log(serpent.block(lab))
-	
+	--[[
 lab.on_animation.layers[1].width = 97
 lab.on_animation.layers[1].frame_count = 40
 lab.on_animation.layers[1].line_length = 10
@@ -42,7 +42,25 @@ lab.on_animation.layers[1].hr_version.animation_speed = 0.5
 lab.on_animation.layers[2].repeat_count = 40
 lab.on_animation.layers[2].hr_version.repeat_count = 40
 lab.on_animation.layers[3].repeat_count = 40
-lab.on_animation.layers[3].hr_version.repeat_count = 40
+lab.on_animation.layers[3].hr_version.repeat_count = 40 --]]
+
+for _,entry in pairs(lab.on_animation.layers) do
+	if entry.frame_count and entry.frame_count > 1 then
+		entry.frame_count = entry.frame_count/3;
+		if entry.hr_version and entry.hr_version.frame_count > 1 then
+			entry.hr_version.frame_count = entry.hr_version.frame_count/3;
+		end
+	end
+	
+	if entry.repeat_count and entry.repeat_count > 1 then
+		entry.repeat_count = entry.repeat_count/3;
+		if entry.hr_version and entry.hr_version.repeat_count > 1 then
+			entry.hr_version.repeat_count = entry.hr_version.repeat_count/3;
+		end
+	end
+end
+
+log(serpent.block(lab))
 
 local pack = copyObject("tool", "automation-science-pack", "early-science-pack")
 replaceSpritesDynamic("EarlyExtensions", "automation-science-pack", pack)
