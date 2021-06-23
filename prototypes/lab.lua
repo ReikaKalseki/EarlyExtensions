@@ -60,8 +60,6 @@ for _,entry in pairs(lab.on_animation.layers) do
 	end
 end
 
-log(serpent.block(lab))
-
 local pack = copyObject("tool", "automation-science-pack", "early-science-pack")
 replaceSpritesDynamic("EarlyExtensions", "automation-science-pack", pack)
 

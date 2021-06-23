@@ -33,14 +33,16 @@ replaceTechPack("gun-turret", "automation-science-pack", "early-science-pack")
 replaceTechPack("stone-wall", "automation-science-pack", "early-science-pack")
 --lockRecipe("automation-science-pack", "automation")
 
-local rec = table.deepcopy(data.raw.recipe.splitter)
-rec.name = "splitter-early"
-replaceItemInRecipe(rec, "electronic-circuit", "copper-cable", {3, 8})
-addRecipeIngredientToRecipe(rec, "iron-plate", "electronic-circuit", 5, true) --since 5 circuits
-data:extend({rec})
-table.insert(data.raw.technology.logistics.effects, {type = "unlock-recipe", recipe = rec.name})
+if (not mods["bobelectronics"]) then
+	local rec = table.deepcopy(data.raw.recipe.splitter)
+	rec.name = "splitter-early"
+	replaceItemInRecipe(rec, "electronic-circuit", "copper-cable", {3, 8}, true)
+	addRecipeIngredientToRecipe(rec, "iron-plate", "electronic-circuit", 5) --since 5 circuits
+	data:extend({rec})
+	table.insert(data.raw.technology.logistics.effects, {type = "unlock-recipe", recipe = rec.name})
+end
 
-replaceItemInRecipe("repair-pack", "electronic-circuit", "copper-cable", 3)
+replaceItemInRecipe("repair-pack", "electronic-circuit", "copper-cable", 3, mods["bobelectronics"])
 addItemToRecipe("repair-pack", "iron-plate", 1, 1, true)
 
 if data.raw.item["burner-offshore-pump"] then
@@ -98,7 +100,7 @@ data:extend({
 lockRecipe("burner-lab-upgrade", "basic-science")
 
 rec = createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", false)
-streamlineRecipeOutputWithRecipe(rec, "electronic-circuit", "assembling-machine-1")
+streamlineRecipeOutputWithRecipe(rec, "electronic-circuit", "assembling-machine-1", mods["bobelectronics"])
 
 table.insert(data.raw.character.character.crafting_categories, "early-science")
 for _,assembler in pairs(data.raw["assembling-machine"]) do
