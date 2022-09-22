@@ -33,6 +33,8 @@ replaceTechPack("gun-turret", "automation-science-pack", "early-science-pack")
 replaceTechPack("stone-wall", "automation-science-pack", "early-science-pack")
 --lockRecipe("automation-science-pack", "automation")
 
+addPrereqToTech("fluid-generator-1", "steam-power")
+
 if (not mods["bobelectronics"]) then
 	local rec = table.deepcopy(data.raw.recipe.splitter)
 	rec.name = "splitter-early"
@@ -59,6 +61,7 @@ end
 lockRecipe("wind-turbine", "electric-machinery")
 lockRecipe("wind-turbine-2", "electric-machinery")
 lockRecipe("burner-generator", "electric-machinery")
+lockRecipe("bob-burner-generator", "electric-machinery")
 
 --[[
 lockRecipe("burner-inserter-conversion-to-inserter", "electric-machinery")
@@ -82,25 +85,57 @@ rec =
 		name = "burner-lab-upgrade",
 		energy_required = 3,
 		enabled = false,
+		subgroup = data.raw.item.lab.subgroup,
+		localised_name = {"conversion-recipe.name", {"entity-name.burner-lab"}, {"entity-name.lab"}},
+		allow_decomposition = false,
+		allow_as_intermediate = false,
+		allow_intermediates = false,
 		ingredients =
 		{
 			{"burner-lab", 1},
-			{"electronic-circuit", 12},
+			{data.raw.item["basic-circuit-board"] and "basic-circuit-board" or "electronic-circuit", 12},
 			{"iron-plate", 10},
 		},
-		result = "lab",
+		results = {
+			{"lab", 1},
+			{"stone-brick", 10}
+		},
 		icons = {{icon = data.raw.item.lab.icon, icon_size = data.raw.item.lab.icon_size}, {icon = "__DragonIndustries__/graphics/icons/conversion_overlay.png", icon_size = 32}}
 	}
 if mods["RubberBelts"] then
 	table.insert(rec.ingredients, {"rubber", 8})
 end
-data:extend({
-	rec
-})
+data:extend({rec})
 lockRecipe("burner-lab-upgrade", "basic-science")
 
-rec = createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", false)
-streamlineRecipeOutputWithRecipe(rec, "electronic-circuit", "assembling-machine-1", mods["bobelectronics"])
+if mods["bobelectronics"] then
+	rec = {
+		type = "recipe",
+		name = "early-science-assembler-upgrade",
+		energy_required = 5,
+		enabled = false,
+		allow_decomposition = false,
+		allow_as_intermediate = false,
+		allow_intermediates = false,
+		ingredients =
+		{
+			{"early-science-assembler", 1},
+			{data.raw.item["basic-circuit-board"] and "basic-circuit-board" or "electronic-circuit", 2},
+			{"iron-plate", 4},
+			{"iron-gear-wheel", 2},
+		},
+		result = "assembling-machine-1",
+		icons = {{icon = data.raw.item["assembling-machine-1"].icon, icon_size = data.raw.item["assembling-machine-1"].icon_size}, {icon = "__DragonIndustries__/graphics/icons/conversion_overlay.png", icon_size = 32}}
+	}
+	if data.raw.item["wooden-board"] then
+		table.insert(rec.ingredients, {"wooden-board", 1})
+	end
+	data:extend({rec})
+	addTechUnlock("automation", rec.name)
+else
+	rec = createConversionRecipe("early-science-assembler", "assembling-machine-1", true, "automation", false)
+	streamlineRecipeOutputWithRecipe(rec, "electronic-circuit", "assembling-machine-1")
+end
 
 table.insert(data.raw.character.character.crafting_categories, "early-science")
 for _,assembler in pairs(data.raw["assembling-machine"]) do
